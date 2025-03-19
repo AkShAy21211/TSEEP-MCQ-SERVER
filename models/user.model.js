@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema({
   fullName: String,
   email: String,
-  mobile: String,
+  phone: String,
   status: { type: String, enum: ["Student", "Employee"] },
   password: String,
 });

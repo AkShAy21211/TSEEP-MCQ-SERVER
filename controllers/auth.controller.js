@@ -4,8 +4,8 @@ import { comparePasswords, hashPassword } from "../utils/becypt.js";
 import { createToken } from "../utils/token.js";
 
 export const register = async (req, res) => {
-  const { name, email, phone, status, password } = req.body;
-  if (!name || !email || !phone || !status || !password) {
+  const { fullname, email, phone, status, password } = req.body;
+  if (!fullname || !email || !phone || !status || !password) {
     return res
       .status(STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.code)
       .json({ message: STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.message });
@@ -24,11 +24,11 @@ export const register = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     const user = await createUser({
-      name,
+      fullname,
       email,
       phone,
       status,
-      hashedPassword,
+      password:hashedPassword,
     });
 
     // Generate JWT token for the authenticated user

@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from "dotenv/config";
 import authRoute from "./routes/auth.route.js";
 import connectToDb from "./configs/database.js";
 
@@ -7,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to the database
 connectToDb();
+
 
 
 app.use(express.json());
