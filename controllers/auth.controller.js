@@ -2,8 +2,14 @@ import STATUS_MESSAGES from "../configs/statusMessages";
 import { createUser, getUserByPhone } from "../services/user.service";
 
 export const register = async (req, res) => {
+  const { name, email, phone, status, password } = req.body;
+  if (!name || !email || !phone || !status || !password) {
+    return res
+      .status(STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.code)
+      .json({ message: STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.message });
+  }
+
   try {
-    const { name, email, phone, status, password } = req.body;
     await createUser({ name, email, phone, status, password });
     res
       .status(STATUS_MESSAGES.AUTH.REGISTER_SUCCESS.code)
@@ -16,8 +22,14 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  const { phone, password } = req.body;
+  if (!phone || !password) {
+    return res
+      .status(STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.code)
+      .json({ message: STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.message });
+  }
+
   try {
-    const { phone, password } = req.body;
     const user = await getUserByPhone(phone);
     res
       .status(STATUS_MESSAGES.AUTH.LOGIN_SUCCESS.code)
