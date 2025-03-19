@@ -7,11 +7,15 @@ const STATUS_MESSAGES = {
       message: "Registration failed. Please try again.",
     },
     LOGIN_SUCCESS: { code: 200, message: "Login successful." },
-    LOGIN_FAILED: { code: 401, message: "Invalid mobile number or password." },
+    LOGIN_FAILED: { code: 401, message: "Invalid credentials" },
     UNAUTHORIZED: { code: 403, message: "Unauthorized access. Please log in." },
     TOKEN_EXPIRED: {
       code: 401,
       message: "Session expired. Please log in again.",
+    },
+    ACCOUNT_EXISTS: {
+      code: 400,
+      message: "Account already exists. Please log in.",
     },
   },
 

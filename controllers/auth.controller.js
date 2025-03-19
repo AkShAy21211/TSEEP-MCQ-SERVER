@@ -1,5 +1,7 @@
-import STATUS_MESSAGES from "../configs/statusMessages";
-import { createUser, getUserByPhone } from "../services/user.service";
+import STATUS_MESSAGES from "../configs/statusMessages.js";
+import { createUser, getUserByPhoneOrEmail } from "../services/user.service.js";
+import { comparePasswords, hashPassword } from "../utils/becypt.js";
+import { createToken } from "../utils/token.js";
 
 export const register = async (req, res) => {
   const { name, email, phone, status, password } = req.body;
@@ -10,10 +12,31 @@ export const register = async (req, res) => {
   }
 
   try {
-    await createUser({ name, email, phone, status, password });
+    // Check if user already exists by phone or email
+    const existingUser = await getUserByPhoneOrEmail(phone);
+    if (existingUser) {
+      return res
+        .status(STATUS_MESSAGES.AUTH.ACCOUNT_EXISTS.code)
+        .json({ message: STATUS_MESSAGES.AUTH.ACCOUNT_EXISTS.message });
+    }
+
+    // Hash the password before saving it to the database
+    const hashedPassword = await hashPassword(password);
+
+    const user = await createUser({
+      name,
+      email,
+      phone,
+      status,
+      hashedPassword,
+    });
+
+    // Generate JWT token for the authenticated user
+    const token = createToken({ _id: user._id, email: user.email });
+
     res
       .status(STATUS_MESSAGES.AUTH.REGISTER_SUCCESS.code)
-      .json({ message: STATUS_MESSAGES.AUTH.REGISTER_SUCCESS.message });
+      .json({ token, message: STATUS_MESSAGES.AUTH.REGISTER_SUCCESS.message });
   } catch (error) {
     res
       .status(STATUS_MESSAGES.GENERAL.SERVER_ERROR.code)
@@ -30,10 +53,20 @@ export const login = async (req, res) => {
   }
 
   try {
-    const user = await getUserByPhone(phone);
+    const user = await getUserByPhoneOrEmail(phone);
+
+    if (!user || !(await comparePasswords(password, user.password))) {
+      return res
+        .status(STATUS_MESSAGES.AUTH.LOGIN_FAILED.code)
+        .json({ message: STATUS_MESSAGES.AUTH.LOGIN_FAILED.message });
+    }
+
+    // Generate JWT token for the authenticated user
+    const token = createToken({ _id: user._id, email: user.email });
+
     res
       .status(STATUS_MESSAGES.AUTH.LOGIN_SUCCESS.code)
-      .json({ message: STATUS_MESSAGES.AUTH.LOGIN_SUCCESS.message });
+      .json({ token, message: STATUS_MESSAGES.AUTH.LOGIN_SUCCESS.message });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

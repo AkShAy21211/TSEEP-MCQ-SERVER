@@ -1,6 +1,6 @@
 import express from "express";
-import authRoute from "./routes/auth.route";
-import connectToDb from "./configs/database";
+import authRoute from "./routes/auth.route.js";
+import connectToDb from "./configs/database.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/auth",authRoute);
 
-app.listen(prompt, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import ENVS from "../configs/envConfig";
+import ENVS from "../configs/envConfig.js";
 export function createToken(payload) {
   try {
     const token = jwt.sign(payload, ENVS.JWT_SECRET, {
@@ -7,7 +7,7 @@ export function createToken(payload) {
     });
     return token;
   } catch (error) {
-    throw new Error("Error creating token");
+    console.error(error);
   }
 }
 
@@ -16,6 +16,7 @@ export function verifyToken(token) {
     const decoded = jwt.verify(token, ENVS.JWT_SECRET);
     return decoded;
   } catch (error) {
-    throw new Error("Invalid token");
+    console.error(error);
+    
   }
 }
