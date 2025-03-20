@@ -30,6 +30,10 @@ const STATUS_MESSAGES = {
       message: "Time limit exceeded. Test not submitted.",
     },
     INVALID_TEST_ID: { code: 400, message: "Invalid test ID." },
+    INVALID:{
+      code: 400,
+      message: "Invalid test format."
+    }
   },
 
   // Feedback

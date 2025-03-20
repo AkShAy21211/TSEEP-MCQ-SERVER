@@ -1,16 +1,31 @@
 import mongoose from "mongoose";
 
 const TestSchema = new mongoose.Schema({
+  testId: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
   userId: mongoose.Schema.Types.ObjectId,
-  questions: [{ question: String, options: [String], answer: String }],
-  score: Number,
-  feedback: {
-    status: {
-      type: String,
+  questions: [
+    {
+      questionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
+        required: true,
+      },
+      answer: String,
     },
-    comment: {
-      type: String,
-    },
+  ],
+  score: {
+    type: Number,
+    required: true,
+  },
+  emoji: {
+    type: String,
+  },
+  comment: {
+    type: String,
   },
 });
 
