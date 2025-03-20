@@ -61,6 +61,25 @@ const STATUS_MESSAGES = {
     },
     NOT_FOUND: { code: 404, message: "Resource not found." },
   },
+
+  QUESTION: {
+    QUESTION_ADDED: { code: 200, message: "Question added successfully." },
+    QUESTION_UPDATED: { code: 200, message: "Question updated successfully." },
+    QUESTION_NOT_FOUND: { code: 404, message: "Question not found." },
+    QUESTION_DELETE_SUCCESS: {
+      code: 200,
+      message: "Question deleted successfully.",
+    },
+    QUESTION_DELETE_FAILED: {
+      code: 400,
+      message: "Failed to delete question.",
+    },
+    LESS_OPTIONS: {
+      code: 400,
+      message: "Options must contain at least 4 options",
+    },
+    QUESTION_INVALID_TYPE: { code: 400, message: "Invalid question type." },
+  },
 };
 
 export default STATUS_MESSAGES;

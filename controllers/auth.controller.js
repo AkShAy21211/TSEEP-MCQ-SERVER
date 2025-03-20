@@ -28,13 +28,13 @@ export const register = async (req, res) => {
       email,
       phone,
       status,
-      password:hashedPassword,
+      password: hashedPassword,
     });
 
     // Generate JWT token for the authenticated user
     const token = createToken({ _id: user._id, email: user.email });
 
-    res
+    return res
       .status(STATUS_MESSAGES.AUTH.REGISTER_SUCCESS.code)
       .json({ token, message: STATUS_MESSAGES.AUTH.REGISTER_SUCCESS.message });
   } catch (error) {
@@ -64,7 +64,7 @@ export const login = async (req, res) => {
     // Generate JWT token for the authenticated user
     const token = createToken({ _id: user._id, email: user.email });
 
-    res
+    return res
       .status(STATUS_MESSAGES.AUTH.LOGIN_SUCCESS.code)
       .json({ token, message: STATUS_MESSAGES.AUTH.LOGIN_SUCCESS.message });
   } catch (error) {
