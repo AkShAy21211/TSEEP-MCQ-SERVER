@@ -45,7 +45,7 @@ This is a full-stack MERN application that includes user authentication (mobile 
 ## Setup Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/mern-auth-test.git
+   git clone  https://github.com/AkShAy21211/TSEEP-MCQ-SERVER.git
    cd TSEEP-MCQ-SERVER
    ```
 2. Install dependencies
