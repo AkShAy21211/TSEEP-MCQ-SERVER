@@ -19,9 +19,9 @@ connectToDb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Enable CORS
+
 app.use(cors({
-  origin: [ENVS.DEPLOY_URL,ENVS.LOCAL_URL],
+  origin: ["https://tseep-mi.vercel.app", process.env.LOCAL_URL || "http://localhost:3000"],
 }));
 
 // Routes
