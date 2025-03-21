@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import ENVS from "./envConfig.js";
 
 // Connect to MongoDB
 
 async function connectToDb() {
   try {
-    await mongoose.connect("mongodb://localhost:27017/TSEEP", {
+    await mongoose.connect(ENVS.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

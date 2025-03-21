@@ -21,6 +21,10 @@ const TestSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  total: {
+    type: Number,
+    default: 50,
+  },
   emoji: {
     type: String,
   },

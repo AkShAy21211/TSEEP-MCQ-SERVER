@@ -45,7 +45,9 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { phone, password } = req.body;
+
+  
+
   if (!phone || !password) {
     return res
       .status(STATUS_MESSAGES.GENERAL.FIELDS_REQUIRED.code)
