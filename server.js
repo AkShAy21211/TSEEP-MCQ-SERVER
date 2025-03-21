@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: ["https://tseep-mi.vercel.app", process.env.LOCAL_URL || "http://localhost:3000"],
+  origin: "*",
 }));
 
 // Routes
